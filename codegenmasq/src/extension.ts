@@ -4,9 +4,7 @@ export function activate(context: vscode.ExtensionContext) {
 
 	console.log('Congratulations, your extension "codegenmasq" is now active!');
 
-	let disposable = vscode.commands.registerCommand('codegenmasq.cgmasq', () => {
-
-		vscode.window.showInformationMessage('Hello World from codegenmasq!');
+	let disposable = vscode.commands.registerCommand('codegenmasq.cgmasq', async () => {
 
 		const {activeTextEditor} = vscode.window;
 		let newSnippet = '';
@@ -15,12 +13,19 @@ export function activate(context: vscode.ExtensionContext) {
 			const document = activeTextEditor.document;
 			const selection = activeTextEditor.selection;
 			const text = document.getText(selection);
-			newSnippet = text + ' ---> my modifications';
+			newSnippet = text + ' // ---> my modifications';
 		} else {
 			newSnippet = 'activeTextEditor is undefined';
 		}
 
-		vscode.window.showInformationMessage(newSnippet);
+		// Create a new untitled document with the new snippet as content
+		const newDoc = await vscode.workspace.openTextDocument({
+			content: newSnippet,
+			language: 'typescript' // or any other language you want
+		});
+
+		// Open the new document in a new editor window
+		vscode.window.showTextDocument(newDoc);
 
 	});
 
