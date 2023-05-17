@@ -14,8 +14,8 @@
   "contributes": {
     "commands": [
       {
-        "command": "codegenmasq.helloWorld",
-        "title": "Hello World"
+        "command": "codegenmasq.cgmasq",
+        "title": "cgmasq"
       }
     ]
   },
