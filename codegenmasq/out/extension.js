@@ -1,28 +1,31 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.deactivate = exports.activate = void 0;
+const fs = require("fs");
+const path = require("path");
 const vscode = require("vscode");
 function activate(context) {
-    console.log('Congratulations, your extension "codegenmasq" is now active!');
     let disposable = vscode.commands.registerCommand('codegenmasq.cgmasq', async () => {
         const { activeTextEditor } = vscode.window;
-        let newSnippet = '';
         if (activeTextEditor) {
             const document = activeTextEditor.document;
             const selection = activeTextEditor.selection;
             const text = document.getText(selection);
-            newSnippet = text + ' // ---> my modifications';
+            const newSnippet = text + ' ---> my modifications';
+            // Write the original and modified text to temporary files
+            const originalFilePath = path.join(context.extensionPath, 'original.txt');
+            const modifiedFilePath = path.join(context.extensionPath, 'modified.txt');
+            fs.writeFileSync(originalFilePath, text);
+            fs.writeFileSync(modifiedFilePath, newSnippet);
+            // Open the files as TextDocuments
+            const originalDocument = await vscode.workspace.openTextDocument(originalFilePath);
+            const modifiedDocument = await vscode.workspace.openTextDocument(modifiedFilePath);
+            // Open a diff editor comparing the original and modified documents
+            vscode.commands.executeCommand('vscode.diff', originalDocument.uri, modifiedDocument.uri, 'Original <-> Modified');
         }
         else {
-            newSnippet = 'activeTextEditor is undefined';
+            vscode.window.showInformationMessage('Active editor is undefined');
         }
-        // Create a new untitled document with the new snippet as content
-        const newDoc = await vscode.workspace.openTextDocument({
-            content: newSnippet,
-            language: 'typescript' // or any other language you want
-        });
-        // Open the new document in a new editor window
-        vscode.window.showTextDocument(newDoc);
     });
     context.subscriptions.push(disposable);
 }
