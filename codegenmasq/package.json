@@ -17,7 +17,22 @@
         "command": "codegenmasq.cgmasq",
         "title": "cgmasq"
       }
-    ]
+    ],
+    "configuration": {
+      "title": "cgmasq",
+      "properties": {
+          "codegenmasq.replacements": {
+              "type": "object",
+              "patternProperties": {
+                  ".*": {
+                      "type": "string"
+                  }
+              },
+              "default": {},
+              "description": "Mapping of sensitive words to their replacements"
+          }
+      }
+  }
   },
   "scripts": {
     "vscode:prepublish": "npm run compile",
