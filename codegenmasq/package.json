@@ -18,6 +18,14 @@
         "title": "cgmasq"
       }
     ],
+    "keybindings": [
+      {
+        "command": "codegenmasq.cgmasq",
+        "key": "ctrl+alt+g",
+        "mac": "cmd+alt+g",
+        "when": "editorTextFocus"
+      }
+    ],
     "configuration": {
       "title": "cgmasq",
       "properties": {
@@ -32,7 +40,7 @@
               "description": "Mapping of sensitive words to their replacements"
           }
       }
-  }
+    }
   },
   "scripts": {
     "vscode:prepublish": "npm run compile",
