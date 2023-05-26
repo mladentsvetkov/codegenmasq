@@ -2,13 +2,17 @@
   "name": "codegenmasq",
   "displayName": "codegenmasq",
   "description": "VS Code Plugin for removing sensitive data from snippets before pasting them in code generators",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "engines": {
     "vscode": "^1.78.0"
   },
-  "categories": [
-    "Other"
-  ],
+  "publisher": "MadJoRR",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mladentsvetkov/codegenmasq"
+  },
+  "categories": ["Snippets", "Formatters", "Debuggers", "Programming Languages"],
+  "keywords": ["code generator helper"],
   "activationEvents": [],
   "main": "./out/extension.js",
   "contributes": {

@@ -34,8 +34,8 @@ export function activate(context: vscode.ExtensionContext) {
         let modifiedText = replaceWords(text, replacements);
 
         // Write the original and modified text to temporary files
-        const originalFilePath = path.join(context.extensionPath, 'original.txt');
-        const modifiedFilePath = path.join(context.extensionPath, 'modified.txt');
+        const originalFilePath = path.join(context.extensionPath, 'original.ts');
+        const modifiedFilePath = path.join(context.extensionPath, 'modified.ts');
         fs.writeFileSync(originalFilePath, text);
         fs.writeFileSync(modifiedFilePath, modifiedText);
 
